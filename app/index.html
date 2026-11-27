@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Household Budget Planner</title>
+  <meta name="description" content="Plan your household budget: income, spending by category, and savings goals in one place.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <a class="brand" href="index.html">Household <span>Budget</span></a>
+      <nav class="main-nav">
+        <a href="index.html" class="current">Home</a>
+        <a href="income.html">Income</a>
+        <a href="expenses.html">Expenses</a>
+        <a href="savings.html">Savings</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Household Budget Planner</h1>
+      <p>See where the household money goes, keep spending inside the plan, and watch your savings goals grow — all in one place.</p>
+      <span class="month-tag">November 2026 · Monthly budget</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="card" id="overview">
+      <h2>Budget Overview</h2>
+      <p class="lede">What the household planned to spend this month, what it actually spent, and what is left.</p>
+      <table class="budget">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="num">Budgeted</th>
+            <th class="num">Spent</th>
+            <th class="num">Remaining</th>
+            <th class="num">Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Housing</td>
+            <td class="num">$2,500.00</td>
+            <td class="num">$2,450.00</td>
+            <td class="num">$50.00</td>
+            <td class="num"><span class="pct hot">98%</span></td>
+          </tr>
+          <tr>
+            <td>Utilities</td>
+            <td class="num">$350.00</td>
+            <td class="num">$320.50</td>
+            <td class="num">$29.50</td>
+            <td class="num"><span class="pct">91%</span></td>
+          </tr>
+          <tr>
+            <td>Food</td>
+            <td class="num">$600.00</td>
+            <td class="num">$580.20</td>
+            <td class="num">$19.80</td>
+            <td class="num"><span class="pct hot">97%</span></td>
+          </tr>
+          <tr>
+            <td>Transportation</td>
+            <td class="num">$250.00</td>
+            <td class="num">$235.00</td>
+            <td class="num">$15.00</td>
+            <td class="num"><span class="pct">94%</span></td>
+          </tr>
+          <tr>
+            <td>Entertainment</td>
+            <td class="num">$150.00</td>
+            <td class="num">$125.00</td>
+            <td class="num">$25.00</td>
+            <td class="num"><span class="pct">83%</span></td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td class="num">$3,850.00</td>
+            <td class="num">$3,710.70</td>
+            <td class="num">$139.30</td>
+            <td class="num"><span class="pct hot">96%</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="hint">Housing and food are nearly at their limits — $50.00 and $19.80 left. The household is $139.30 inside the monthly plan overall.</p>
+    </section>
+
+    <section class="card" id="income">
+      <h2>Income</h2>
+      <p class="lede">Money coming in this month. Add a source and it joins the list right away.</p>
+      <ul class="figures" id="income-list"></ul>
+      <div class="total-line"><span>Monthly income</span><span id="income-total">$0.00</span></div>
+      <form class="planner" id="income-form" style="margin-top: 1.25rem;">
+        <div class="field">
+          <label for="income-source">Income source</label>
+          <input type="text" id="income-source" placeholder="e.g. Salary" required>
+        </div>
+        <div class="field">
+          <label for="income-amount">Amount (monthly)</label>
+          <input type="number" id="income-amount" step="0.01" min="0" placeholder="0.00" required>
+        </div>
+        <button type="submit" class="primary">Add Income</button>
+      </form>
+    </section>
+
+    <section class="card" id="expenses">
+      <h2>Expenses</h2>
+      <p class="lede">Pick a category to see what the household spent on it this month.</p>
+      <div class="cat-row" id="home-cats">
+        <button class="cat active" data-cat="housing">Housing</button>
+        <button class="cat" data-cat="utilities">Utilities</button>
+        <button class="cat" data-cat="food">Food</button>
+        <button class="cat" data-cat="transportation">Transportation</button>
+        <button class="cat" data-cat="entertainment">Entertainment</button>
+        <button class="cat" data-cat="other">Other</button>
+      </div>
+      <ul class="figures" id="home-expense-list"></ul>
+      <div class="total-line"><span id="home-expense-label">Housing total</span><span id="home-expense-total">$0.00</span></div>
+      <p class="hint"><a href="expenses.html">Open the full expenses page</a> for every item in each category.</p>
+    </section>
+
+    <section class="card" id="savings">
+      <h2>Savings Goals</h2>
+      <p class="lede">Three goals the household is working towards. Add one of your own below.</p>
+      <div id="home-goals"></div>
+      <form class="planner" id="goal-form" style="margin-top: 1rem;">
+        <div class="field">
+          <label for="goal-name">Goal name</label>
+          <input type="text" id="goal-name" placeholder="e.g. Emergency Fund" required>
+        </div>
+        <div class="field">
+          <label for="goal-target">Target amount</label>
+          <input type="number" id="goal-target" step="0.01" min="0" placeholder="0.00" required>
+        </div>
+        <div class="field">
+          <label for="goal-current">Saved so far</label>
+          <input type="number" id="goal-current" step="0.01" min="0" placeholder="0.00" required>
+        </div>
+        <button type="submit" class="primary">Add Goal</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>Household Budget Planner — a plain, working budget for one household. Figures are the household's own November numbers.</footer>
+
+  <script>
+    // ---- Data: the household's own November figures ----
+    const incomeData = [
+      { source: 'Salary', amount: 5200.00 },
+      { source: 'Freelance Work', amount: 300.00 },
+      { source: 'Interest Income', amount: 45.50 }
+    ];
+
+    const expenseData = {
+      housing: [
+        { item: 'Rent', amount: 1800.00 },
+        { item: 'Renter Insurance', amount: 25.00 }
+      ],
+      utilities: [
+        { item: 'Electricity', amount: 120.50 },
+        { item: 'Water', amount: 45.00 },
+        { item: 'Internet', amount: 65.00 }
+      ],
+      food: [
+        { item: 'Groceries', amount: 600.00 },
+        { item: 'Dining Out', amount: 200.00 }
+      ],
+      transportation: [
+        { item: 'Car Payment', amount: 350.00 },
+        { item: 'Gas', amount: 150.00 },
+        { item: 'Car Insurance', amount: 100.00 }
+      ],
+      entertainment: [
+        { item: 'Streaming Services', amount: 50.00 },
+        { item: 'Movies', amount: 40.00 }
+      ],
+      other: [
+        { item: 'Household Supplies', amount: 80.00 },
+        { item: 'Personal Care', amount: 60.00 }
+      ]
+    };
+
+    const goalsData = [
+      { name: 'Emergency Fund', target: 10000, current: 3500 },
+      { name: 'Vacation', target: 3000, current: 1200 },
+      { name: 'New Car', target: 15000, current: 7500 }
+    ];
+
+    const money = (n) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    // ---- Income list + add form ----
+    function renderIncome() {
+      const list = document.getElementById('income-list');
+      let total = 0;
+      list.innerHTML = incomeData.map((row) => {
+        total += row.amount;
+        return '<li><span>' + row.source + '</span><span class="amount">' + money(row.amount) + '</span></li>';
+      }).join('');
+      document.getElementById('income-total').textContent = money(total);
+    }
+
+    document.getElementById('income-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const source = document.getElementById('income-source').value.trim();
+      const amount = parseFloat(document.getElementById('income-amount').value);
+      if (!source || isNaN(amount) || amount < 0) return;
+      incomeData.push({ source, amount });
+      renderIncome();
+      event.target.reset();
+    });
+
+    // ---- Expenses: category buttons switch the list ----
+    function showCategory(key, label) {
+      document.querySelectorAll('#home-cats .cat').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.cat === key);
+      });
+      const items = expenseData[key] || [];
+      let total = 0;
+      document.getElementById('home-expense-list').innerHTML = items.map((row) => {
+        total += row.amount;
+        return '<li><span>' + row.item + '</span><span class="amount">' + money(row.amount) + '</span></li>';
+      }).join('');
+      document.getElementById('home-expense-label').textContent = label + ' total';
+      document.getElementById('home-expense-total').textContent = money(total);
+    }
+
+    document.querySelectorAll('#home-cats .cat').forEach((btn) => {
+      btn.addEventListener('click', () => showCategory(btn.dataset.cat, btn.textContent));
+    });
+
+    // ---- Savings goals + add form ----
+    function goalCard(goal) {
+      const pct = Math.round((goal.current / goal.target) * 100);
+      return '<div class="goal">' +
+        '<div class="goal-head"><span class="name">' + goal.name + '</span>' +
+        '<span class="pct-done">' + pct + '% complete</span></div>' +
+        '<progress value="' + pct + '" max="100"></progress>' +
+        '<div class="goal-amounts"><span>Saved: ' + money(goal.current) + '</span>' +
+        '<span>Target: ' + money(goal.target) + '</span></div></div>';
+    }
+
+    function renderGoals() {
+      document.getElementById('home-goals').innerHTML = goalsData.map(goalCard).join('');
+    }
+
+    document.getElementById('goal-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('goal-name').value.trim();
+      const target = parseFloat(document.getElementById('goal-target').value);
+      const current = parseFloat(document.getElementById('goal-current').value);
+      if (!name || isNaN(target) || isNaN(current) || target <= 0 || current < 0) return;
+      goalsData.push({ name, target, current });
+      renderGoals();
+      event.target.reset();
+    });
+
+    // ---- First paint ----
+    renderIncome();
+    showCategory('housing', 'Housing');
+    renderGoals();
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Income — Household Budget Planner</title>
+  <meta name="description" content="Every income source for the household, with the monthly total. Add a new source and it joins the list.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <header>
+    <div class="nav-bar">
+      <a class="brand" href="index.html">Household <span>Budget</span></a>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="income.html" class="current">Income</a>
+        <a href="expenses.html">Expenses</a>
+        <a href="savings.html">Savings</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Income</h1>
+      <p>Every source of money coming into the household this month, and what it adds up to.</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="card">
+      <h2>Income Sources</h2>
+      <p class="lede">The household's regular money in. Salary pays the bills; the smaller streams top up savings.</p>
+      <ul class="figures" id="income-list"></ul>
+      <div class="total-line"><span>Monthly income</span><span id="income-total">$0.00</span></div>
+      <p class="hint">Monthly income of $5,545.50 against planned spending of $3,850.00 leaves $1,695.50 for savings and surprises.</p>
+    </section>
+
+    <section class="card">
+      <h2>Add an Income Source</h2>
+      <p class="lede">A new job, a side gig, interest from the bank — add it and the total updates at once.</p>
+      <form class="planner" id="income-form">
+        <div class="field">
+          <label for="income-source">Income source</label>
+          <input type="text" id="income-source" placeholder="e.g. Salary, Freelance, Dividends" required>
+        </div>
+        <div class="field">
+          <label for="income-amount">Amount (monthly)</label>
+          <input type="number" id="income-amount" step="0.01" min="0" placeholder="0.00" required>
+        </div>
+        <button type="submit" class="primary">Add Income Source</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>Household Budget Planner — a plain, working budget for one household. Figures are the household's own November numbers.</footer>
+
+  <script>
+    // The household's income this month.
+    const incomeData = [
+      { source: 'Salary', amount: 5200.00 },
+      { source: 'Freelance Work', amount: 300.00 },
+      { source: 'Interest Income', amount: 45.50 }
+    ];
+
+    const money = (n) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    function renderIncome() {
+      let total = 0;
+      document.getElementById('income-list').innerHTML = incomeData.map((row) => {
+        total += row.amount;
+        return '<li><span>' + row.source + '</span><span class="amount">' + money(row.amount) + '</span></li>';
+      }).join('');
+      document.getElementById('income-total').textContent = money(total);
+    }
+
+    document.getElementById('income-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const source = document.getElementById('income-source').value.trim();
+      const amount = parseFloat(document.getElementById('income-amount').value);
+      if (!source || isNaN(amount) || amount < 0) return;
+      incomeData.push({ source, amount });
+      renderIncome();
+      event.target.reset();
+    });
+
+    renderIncome();
+  </script>
+</body>
+</html>
